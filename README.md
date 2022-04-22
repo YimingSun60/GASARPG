@@ -36,7 +36,7 @@ Combo1没有输入指令区间的判定，也就是说在输入区间以外的�
 
 ![Alt text](../main/Media/InputWindow.png?raw=true)
 
-这不是理想的情况，因为这样会造成动作没播完的时候被Combo1打断。我们可以通过往***Activition Blocked Tags***添加```Ability.State```来避免这个问题。
+这不是理想的情况，因为这样会造成动作没播完的时候被Combo1打断。可以通往***Activition Blocked Tags***添加```Ability.State```来避免这个问题。
 
 ***Activition Blocked Tags***的作用如下图
 
