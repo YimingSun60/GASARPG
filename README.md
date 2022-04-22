@@ -34,12 +34,12 @@ Notify State结束后， 会将该Actor的***InputWindow A-B***的***Gameplay Ta
 
 Combo1没有输入指令区间的判定，也就是说在输入区间以外的时候进行攻击输入都会激活Combo1。
 
-![Alt text](C:\Users\yysym\Pictures\UE5 Learning\InputWindow.png)
+![Alt text](D:\MyProject\Media\InputWindow.png)
 
 这不是理想的情况，因为这样会造成动作没播完的时候被Combo1打断。我们可以通过往***Activition Blocked Tags***添加```Ability.State```来避免这个问题。
 
 ***Activition Blocked Tags***的作用如下图
 
-![Alt text](C:\Users\yysym\Pictures\UE5 Learning\ActivationBlockedTags.png)
+![Alt text](D:\MyProject\Media\ActivationBlockedTags.png)
 
 所有攻击技能被激活时都会被赋予```Ability.State```的标签，在这些技能执行期间，Combo1会被阻拦。
