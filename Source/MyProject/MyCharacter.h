@@ -7,6 +7,7 @@
 #include "AbilitySystemInterface.h"
 #include "Ability/GameplayAbilities.h"
 #include "AbilitySystemComponent.h"
+#include "BasicAttribueSet.h"
 #include "GameplayAbilitySpec.h"
 #include "UObject/ObjectMacros.h"
 #include "Abilities/GameplayAbility_CharacterJump.h"
@@ -55,6 +56,9 @@ protected:
 	// Set SprintAbility
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "AbilitySystem")
 	TArray<TSubclassOf<class UGameplayAbilities>> CharacterAbilities;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere,Category = "AttributeSet")
+	class UBasicAttribueSet* BasicAttributes;
 	
 	UFUNCTION(BlueprintCallable, Category = "GamePlayAbility")
 	FGameplayTagContainer AddGameplayTags(const FGameplayTagContainer Tag);
