@@ -3,15 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "AttributeSet.h"
-#include "AbilitySystemComponent.h"
 
 /**
  * 
  */
-class MYPROJECT_API AbilityBase
+class MYPROJECT_API BasicAttribueSet
 {
 public:
-	AbilityBase();
-	~AbilityBase();
+	BasicAttribueSet();
+	~BasicAttribueSet();
 };
