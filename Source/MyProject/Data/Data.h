@@ -24,4 +24,8 @@ enum class AbilityInputID : uint8
  Sprint UMETA(DisplayName = "Sprint"),
  // 5 Melee
  Melee UMETA(DisplayName = "Melee"),
+ //6 Guard
+ Guard UMETA(DisplayName = "Guard"),
+ //7 Sheathe
+ Sheathe UMETA(DisplayName = "Sheathe"),
 };
