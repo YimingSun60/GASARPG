@@ -1,12 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "AbilityBase.h"
+#include "UHUDWidget.h"
 
-AbilityBase::AbilityBase()
+UHUDWidget::UHUDWidget()
 {
 }
 
-AbilityBase::~AbilityBase()
-{
-}
+
