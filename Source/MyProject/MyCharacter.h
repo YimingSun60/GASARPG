@@ -8,9 +8,7 @@
 #include "Ability/GameplayAbilities.h"
 #include "AbilitySystemComponent.h"
 #include "BasicAttribueSet.h"
-#include "GameplayAbilitySpec.h"
-#include "UObject/ObjectMacros.h"
-#include "Abilities/GameplayAbility_CharacterJump.h"
+#include "GameplayEffectTypes.h"
 #include "MyCharacter.generated.h"
 
 
@@ -65,6 +63,8 @@ protected:
 
 	UFUNCTION(BlueprintCallable, Category = "GamePlayAbility")
 	FGameplayTagContainer RemoveGameplayTags(const FGameplayTagContainer Tag);
+	
+	
 	//Add Ability
 	void AquareAbility();
 
