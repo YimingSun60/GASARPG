@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "MyCharacter.h"
 #include "Data/Data.h"
+#include "BasicAttribueSet.h"
+#include "AbilitySystemComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
@@ -111,8 +113,8 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 		PlayerInputComponent->BindAxis("Move Right / Left",this,&AMyCharacter::MoveRight);
 		PlayerInputComponent->BindAxis("Turn Right / Left Mouse",this,&AMyCharacter::Turn);
 		PlayerInputComponent->BindAxis("Look Up / Down Mouse",this,&AMyCharacter::Look);
-		PlayerInputComponent->BindAction("Run", IE_Pressed, this, &AMyCharacter::RunActive);
-		PlayerInputComponent->BindAction("Run", IE_Released, this, &AMyCharacter::RunInactive);
+		//PlayerInputComponent->BindAction("Run", IE_Pressed, this, &AMyCharacter::RunActive);
+		//PlayerInputComponent->BindAction("Run", IE_Released, this, &AMyCharacter::RunInactive);
 		PlayerInputComponent->BindAction("Walk", IE_Pressed, this, &AMyCharacter::WalkActive);
 		PlayerInputComponent->BindAction("Walk", IE_Released, this, &AMyCharacter::WalkInactive);
 
@@ -126,7 +128,6 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 void AMyCharacter::MoveForward(float Value)
 {
-
 	// find out which way is right
     	const FRotator Rotation = Controller->GetControlRotation();
     	const FRotator YawRotation(0, Rotation.Yaw, 0);
@@ -136,6 +137,7 @@ void AMyCharacter::MoveForward(float Value)
 		//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("Direction is : %f, %f"),Direction.X, Direction.Y));
     	// add movement in that direction
     	AddMovementInput(Direction, Value);
+	
 }
 
 void AMyCharacter::MoveRight(float Value)
@@ -162,6 +164,7 @@ void AMyCharacter::Look(float Value)
 	AddControllerPitchInput(Value * TurnRateGamepad *GetWorld()->GetDeltaSeconds());
 }
 
+/*
 void AMyCharacter::RunActive()
 {
 	Movementcomp->MaxWalkSpeed = 700;
@@ -177,7 +180,7 @@ void AMyCharacter::RunInactive()
 	Movementcomp->bUseControllerDesiredRotation = true;
 	Movementcomp->bOrientRotationToMovement = false;
 }
-
+*/
 void AMyCharacter::WalkActive()
 {
 	Movementcomp->MaxWalkSpeed = 230;

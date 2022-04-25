@@ -170,6 +170,7 @@ void UBasicAttribueSet::AdjustAttributeForMaxChange(FGameplayAttributeData& Affe
 	}
 }
 
+/*
 void UBasicAttribueSet::OnRep_Health(const FGameplayAttributeData& OldHealth)
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UBasicAttribueSet, Health, OldHealth);
@@ -199,3 +200,4 @@ void UBasicAttribueSet::OnRep_StaminaRegenRate(const FGameplayAttributeData& Old
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UBasicAttribueSet, StaminaRegenRate, OldStaminaRegenRate);
 }
+*/

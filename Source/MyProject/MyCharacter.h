@@ -42,8 +42,8 @@ protected:
 	void Look(float Value);
 
 	//Input Action
-	void RunActive();
-	void RunInactive();
+	//void RunActive();
+	//void RunInactive();
 	void WalkActive();
 	void WalkInactive();
 

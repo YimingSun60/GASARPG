@@ -5,6 +5,9 @@
 #include "CoreMinimal.h"
 #include "Abilities/GameplayAbility.h"
 #include "MyProject\Data\Data.h"
+#include "AbilitySystemComponent.h"
+#include "GameplayEffect.h"
+#include "MyProject\MyGameplayEffect.h"
 #include "GameplayAbilities.generated.h"
 /**
  * 
@@ -13,6 +16,9 @@ UCLASS()
 class MYPROJECT_API UGameplayAbilities : public UGameplayAbility
 {
 	GENERATED_BODY()
+private:
+	UAbilitySystemComponent *AbilitySystemComponent;
+	//UMyGameplayEffect * MyGameplayEffect;
 public:
 	UGameplayAbilities();
 	// Abilities with this set will automatically activate when the input is pressed
@@ -27,4 +33,9 @@ public:
 	// Epic's comment: Projects may want to initiate passives or do other "BeginPlay" type of logic here.
 	virtual void OnAvatarSet(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec) override;
 
+	UFUNCTION(BlueprintCallable)
+	FGameplayTagContainer AddTag(const FGameplayTagContainer Tag, UMyGameplayEffect* MyGameplayEffect);
+
+	UFUNCTION(BlueprintCallable)
+	FGameplayTagContainer RemoveTag(const FGameplayTagContainer Tag, UMyGameplayEffect* MyGameplayEffect);
 };
