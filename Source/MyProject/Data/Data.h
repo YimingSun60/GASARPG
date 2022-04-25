@@ -28,6 +28,4 @@ enum class AbilityInputID : uint8
  Guard UMETA(DisplayName = "Guard"),
  //7 Sheathe
  Sheathe UMETA(DisplayName = "Sheathe"),
- //8 Run
- Run UMETA(DisplayName = "Run")
 };

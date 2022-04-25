@@ -13,7 +13,6 @@ UGameplayAbilities::UGameplayAbilities()
 	// Default tags that block this ability from activating
 	ActivationBlockedTags.AddTag(FGameplayTag::RequestGameplayTag(FName("State.Dead")));
 	ActivationBlockedTags.AddTag(FGameplayTag::RequestGameplayTag(FName("State.Debuff.Stun")));
-	
 }
 
 void UGameplayAbilities::OnAvatarSet(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
@@ -23,26 +22,6 @@ void UGameplayAbilities::OnAvatarSet(const FGameplayAbilityActorInfo* ActorInfo,
 	{
 		bool ActivatedAbility = ActorInfo->AbilitySystemComponent->TryActivateAbility(Spec.Handle, false);
 	}
-}
-
-FGameplayTagContainer UGameplayAbilities::AddTag(const FGameplayTagContainer Tag, UMyGameplayEffect *MyGameplayEffect)
-{
-	if(MyGameplayEffect)
-	{
-		MyGameplayEffect->AddGameplayTags(Tag);
-	}
-	
-	return Tag;
-}
-
-FGameplayTagContainer UGameplayAbilities::RemoveTag(const FGameplayTagContainer Tag, UMyGameplayEffect *MyGameplayEffect)
-{
-	if(MyGameplayEffect)
-	{
-		MyGameplayEffect->RemoveGameplayTags(Tag);
-	}
-	
-	return Tag;
 }
 
 

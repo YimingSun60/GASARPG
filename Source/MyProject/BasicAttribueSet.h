@@ -70,7 +70,6 @@ protected:
 	* These OnRep functions exist to make sure that the ability system internal representations are synchronized properly during replication
 	**/
 
-	/*
 	UFUNCTION()
 	virtual void OnRep_Health(const FGameplayAttributeData& OldHealth);
 
@@ -87,5 +86,5 @@ protected:
 
 	UFUNCTION()
 	virtual void OnRep_StaminaRegenRate(const FGameplayAttributeData& OldStaminaRegenRate);
-*/
+
 };
