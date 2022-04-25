@@ -22,7 +22,6 @@ AMyCharacter::AMyCharacter()
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
-	BasicAttributes = CreateDefaultSubobject<UBasicAttribueSet>(TEXT("BasicAttributeSet"));
 }
 
 UAbilitySystemComponent* AMyCharacter::GetAbilitySystemComponent() const
@@ -40,7 +39,6 @@ void AMyCharacter::PossessedBy(AController* NewController)
 void AMyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
 	
 }
 
