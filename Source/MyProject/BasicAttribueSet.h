@@ -66,25 +66,6 @@ protected:
 	// (i.e. When MaxHealth increases, Health increases by an amount that maintains the same percentage as before)
 	void AdjustAttributeForMaxChange(FGameplayAttributeData& AffectedAttribute, const FGameplayAttributeData& MaxAttribute, float NewMaxValue, const FGameplayAttribute& AffectedAttributeProperty);
 
-	/**
-	* These OnRep functions exist to make sure that the ability system internal representations are synchronized properly during replication
-	**/
 
-	UFUNCTION()
-	virtual void OnRep_Health(const FGameplayAttributeData& OldHealth);
-
-	UFUNCTION()
-	virtual void OnRep_MaxHealth(const FGameplayAttributeData& OldMaxHealth);
-
-	UFUNCTION()
-	virtual void OnRep_HealthRegenRate(const FGameplayAttributeData& OldHealthRegenRate);
-	UFUNCTION()
-	virtual void OnRep_Stamina(const FGameplayAttributeData& OldStamina);
-
-	UFUNCTION()
-	virtual void OnRep_MaxStamina(const FGameplayAttributeData& OldMaxStamina);
-
-	UFUNCTION()
-	virtual void OnRep_StaminaRegenRate(const FGameplayAttributeData& OldStaminaRegenRate);
 
 };

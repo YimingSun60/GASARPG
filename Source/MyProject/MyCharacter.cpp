@@ -20,6 +20,8 @@ AMyCharacter::AMyCharacter()
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
+
+	BasicAttributes = CreateDefaultSubobject<UBasicAttribueSet>(TEXT("BasicAttributeSet"));
 }
 
 UAbilitySystemComponent* AMyCharacter::GetAbilitySystemComponent() const
@@ -109,8 +111,8 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 		PlayerInputComponent->BindAxis("Move Right / Left",this,&AMyCharacter::MoveRight);
 		PlayerInputComponent->BindAxis("Turn Right / Left Mouse",this,&AMyCharacter::Turn);
 		PlayerInputComponent->BindAxis("Look Up / Down Mouse",this,&AMyCharacter::Look);
-		PlayerInputComponent->BindAction("Run", IE_Pressed, this, &AMyCharacter::RunActive);
-		PlayerInputComponent->BindAction("Run", IE_Released, this, &AMyCharacter::RunInactive);
+		//PlayerInputComponent->BindAction("Run", IE_Pressed, this, &AMyCharacter::RunActive);
+		//PlayerInputComponent->BindAction("Run", IE_Released, this, &AMyCharacter::RunInactive);
 		PlayerInputComponent->BindAction("Walk", IE_Pressed, this, &AMyCharacter::WalkActive);
 		PlayerInputComponent->BindAction("Walk", IE_Released, this, &AMyCharacter::WalkInactive);
 
@@ -160,6 +162,7 @@ void AMyCharacter::Look(float Value)
 	AddControllerPitchInput(Value * TurnRateGamepad *GetWorld()->GetDeltaSeconds());
 }
 
+/*
 void AMyCharacter::RunActive()
 {
 	Movementcomp->MaxWalkSpeed = 700;
@@ -175,6 +178,7 @@ void AMyCharacter::RunInactive()
 	Movementcomp->bUseControllerDesiredRotation = true;
 	Movementcomp->bOrientRotationToMovement = false;
 }
+*/
 
 void AMyCharacter::WalkActive()
 {

@@ -3,6 +3,7 @@
 
 #include "MyProject\Ability\GameplayAbilities.h"
 #include "AbilitySystemComponent.h"
+#include "AbilitySystemBlueprintLibrary.h"
 #include "GameplayTagContainer.h"
 
 UGameplayAbilities::UGameplayAbilities()
@@ -23,5 +24,28 @@ void UGameplayAbilities::OnAvatarSet(const FGameplayAbilityActorInfo* ActorInfo,
 		bool ActivatedAbility = ActorInfo->AbilitySystemComponent->TryActivateAbility(Spec.Handle, false);
 	}
 }
+
+
+FGameplayTagContainer UGameplayAbilities::AddGamePlayTag(FGameplayTagContainer Tag, UGameplayEffect *GameplayEffect)
+{
+	if(GameplayEffect)
+	{
+		GameplayEffect->InheritableOwnedTagsContainer.Added.AppendTags(Tag);
+	}
+	
+	return Tag;
+}
+
+FGameplayTagContainer UGameplayAbilities::RemoveGamePlayTag(FGameplayTagContainer Tag, UGameplayEffect* GameplayEffect)
+{
+	if(GameplayEffect)
+	{
+		GameplayEffect->InheritableOwnedTagsContainer.Removed.AppendTags(Tag);
+	}
+	
+	return Tag;
+}
+
+
 
 

@@ -8,9 +8,6 @@
 #include "Ability/GameplayAbilities.h"
 #include "AbilitySystemComponent.h"
 #include "BasicAttribueSet.h"
-#include "GameplayAbilitySpec.h"
-#include "UObject/ObjectMacros.h"
-#include "Abilities/GameplayAbility_CharacterJump.h"
 #include "MyCharacter.generated.h"
 
 
@@ -44,8 +41,8 @@ protected:
 	void Look(float Value);
 
 	//Input Action
-	void RunActive();
-	void RunInactive();
+	//void RunActive();
+	//void RunInactive();
 	void WalkActive();
 	void WalkInactive();
 
