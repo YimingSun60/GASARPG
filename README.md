@@ -43,3 +43,11 @@ Combo1没有输入指令区间的判定，也就是说在输入区间以外的�
 ![Alt text](../main/Media/ActivationBlockedTags.png?raw=true)
 
 所有攻击技能被激活时都会被赋予```Ability.State```的标签，在这些技能执行期间，Combo1会被阻拦。
+
+
+
+# 计划清单
+- [ ] 重击combo1重复触发攒能量触发combo2特效
+- [ ] 收剑拔剑两套动作
+- [ ] 第四下攻击连第一下
+- [ ] AI受击反馈
