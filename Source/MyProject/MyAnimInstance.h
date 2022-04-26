@@ -25,6 +25,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Property")
 	float direction;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Property")
+	bool isWeapon;
+
 	UFUNCTION(BlueprintCallable, Category = "Update Animation")
 	void UpdateAnimationProperties();
 
