@@ -4,6 +4,8 @@
 #include "BasicAttribueSet.h"
 #include "GameplayEffect.h"
 #include "GameplayEffectExtension.h"
+#include "GameplayTagContainer.h"
+#include "MyCharacter.h"
 
 UBasicAttribueSet::UBasicAttribueSet()
 {
@@ -28,7 +30,8 @@ void UBasicAttribueSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 {
 	Super::PostGameplayEffectExecute(Data);
 	FGameplayEffectContextHandle Context = Data.EffectSpec.GetContext();
-
+	UAbilitySystemComponent* Source = Context.GetOriginalInstigatorAbilitySystemComponent();
+	
 	FGameplayTagContainer SpecAssetTags;
 	Data.EffectSpec.GetAllAssetTags(SpecAssetTags);
 	
@@ -44,6 +47,46 @@ void UBasicAttribueSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 		// Handle stamina changes.
 		SetStamina(FMath::Clamp(GetStamina(), 0.0f, GetMaxStamina()));
 	}
+
+	AActor* SourceActor = nullptr;
+	AController* SourceController = nullptr;
+	AMyCharacter* SourceCharacter = nullptr;
+	if (Source && Source->AbilityActorInfo.IsValid() && Source->AbilityActorInfo->AvatarActor.IsValid())
+	{
+		SourceActor = Source->AbilityActorInfo->AvatarActor.Get();
+		SourceController = Source->AbilityActorInfo->PlayerController.Get();
+		if (SourceController == nullptr && SourceActor != nullptr)
+		{
+			if (APawn* Pawn = Cast<APawn>(SourceActor))
+			{
+				SourceController = Pawn->GetController();
+			}
+		}
+		// Use the controller to find the source pawn
+		if(SourceController)
+		{
+			SourceCharacter = Cast<AMyCharacter>(SourceController->GetPawn());
+		}
+		else
+		{
+			SourceCharacter = Cast<AMyCharacter>(SourceActor);
+		}
+		// Set the causer actor based on context if it's set
+		if (Context.GetEffectCauser())
+		{
+			SourceActor = Context.GetEffectCauser();
+		}
+	}
+	UAbilitySystemComponent *AbilitySystemComponent = nullptr;
+	AbilitySystemComponent = SourceCharacter->GetAbilitySystemComponent();
+	/*if(GetStamina()==0.0f)
+	{
+		AbilitySystemComponent->AddLooseGameplayTag(FGameplayTag::RequestGameplayTag("State.Tired"));
+	}
+	if(GetStamina()>0.0f)
+	{
+		AbilitySystemComponent ->RemoveLooseGameplayTag(FGameplayTag::RequestGameplayTag("State.Tired"));
+	}*/
 }
 
 
