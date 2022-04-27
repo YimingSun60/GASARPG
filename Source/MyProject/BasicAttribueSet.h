@@ -56,10 +56,18 @@ public:
 	FGameplayAttributeData MaxStamina;
 	ATTRIBUTE_ACCESSORS(UBasicAttribueSet, MaxStamina)
 
-	// Stamina regen rate will passively increase Stamina every second
+	// Stamina regen rate will passively increase Stamna every second
 	UPROPERTY(BlueprintReadOnly, Category = "Stamina")
 	FGameplayAttributeData StaminaRegenRate;
 	ATTRIBUTE_ACCESSORS(UBasicAttribueSet, StaminaRegenRate)
+
+	UPROPERTY(BlueprintReadOnly, Category = "AttributeSet")
+	FGameplayAttributeData MANA;
+	ATTRIBUTE_ACCESSORS(UBasicAttribueSet, MANA)
+
+	UPROPERTY(BlueprintReadOnly, Category = "AttributeSet")
+	FGameplayAttributeData MaxMANA;
+	ATTRIBUTE_ACCESSORS(UBasicAttribueSet, MaxMANA)
 
 protected:
 	// Helper function to proportionally adjust the value of an attribute when it's associated max attribute changes.
