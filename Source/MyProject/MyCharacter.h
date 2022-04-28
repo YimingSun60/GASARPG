@@ -101,7 +101,7 @@ protected:
 
 	//Make the character begin using a command based of the command's name.
 	UFUNCTION(BlueprintCallable)
-	void StartCommand(FString name);
+	void StartCommand(FString _commandName);
 
 	// The amount of time before inputs are removed from the input buffer
 	float removeInputFromInputBufferTime;

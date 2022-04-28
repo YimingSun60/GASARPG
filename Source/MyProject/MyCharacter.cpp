@@ -76,6 +76,7 @@ FGameplayTagContainer AMyCharacter::RemoveGameplayTags(FGameplayTagContainer Tag
 void AMyCharacter::AddInputToInputBuffer(FInputInfo _inputInfo)
 {
 	inputBuffer.Add(_inputInfo);
+	CheckInputBufferForCommand();
 }
 
 
@@ -122,8 +123,13 @@ void AMyCharacter::CheckInputBufferForCommand()
 	}
 }
 
-void AMyCharacter::StartCommand(FString name)
+void AMyCharacter::StartCommand(FString _commandName)
 {
+	if(_commandName.Compare(tempCommand.name) == 0)
+	{
+		UE_LOG(LogTemp,Warning,TEXT("The character is using the command: %s."),*_commandName);
+		hasUsedTempCommand = true;
+	}
 }
 
 
