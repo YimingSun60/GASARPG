@@ -22,6 +22,7 @@ AMyCharacter::AMyCharacter()
 	bUseControllerRotationRoll = false;
 
 	BasicAttributes = CreateDefaultSubobject<UBasicAttribueSet>(TEXT("BasicAttributeSet"));
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 
@@ -32,6 +33,10 @@ AMyCharacter::AMyCharacter()
 	tempCommand.inputs.Add("C");
 	hasUsedTempCommand = false;
 >>>>>>> Stashed changes
+=======
+
+	removeInputFromInputBuffer = 1.0f;
+>>>>>>> LongPressTest
 }
 
 UAbilitySystemComponent* AMyCharacter::GetAbilitySystemComponent() const
@@ -70,13 +75,17 @@ FGameplayTagContainer AMyCharacter::RemoveGameplayTags(FGameplayTagContainer Tag
 	return Tag;
 }
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
+=======
+>>>>>>> LongPressTest
 void AMyCharacter::AddInputToInputBuffer(FInputInfo _inputInfo)
 {
 	inputBuffer.Add(_inputInfo);
 }
 
+<<<<<<< HEAD
 //Find sequence in a list of command and find out if we pressed these buttons
 //If have, start command
 void AMyCharacter::CheckInputBufferForCommand()
@@ -122,6 +131,13 @@ void AMyCharacter::CheckInputBufferForCommand()
 
 
 >>>>>>> Stashed changes
+=======
+void AMyCharacter::RemoveInputToInputBuffer()
+{
+	
+}
+
+>>>>>>> LongPressTest
 //Add ability and bind to the key
 void AMyCharacter::AquareAbility()
 {
@@ -140,8 +156,8 @@ void AMyCharacter::BindInput()
 	if(IsValid(AbilitySystemComponent)&& IsValid(InputComponent))
 	{
 		
-		check(GEngine != nullptr);
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Binding Success"));
+		//check(GEngine != nullptr);
+		//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Binding Success"));
 		AbilitySystemComponent->BindAbilityActivationToInputComponent(InputComponent, FGameplayAbilityInputBinds(FString("Comfirm"),
 			FString("Cancel"), FString("AbilityInputID"), static_cast<int32>(AbilityInputID::Confirm), static_cast<int32>(AbilityInputID::Cancel)));
 
