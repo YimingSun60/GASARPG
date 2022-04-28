@@ -10,6 +10,17 @@
 #include "BasicAttribueSet.h"
 #include "MyCharacter.generated.h"
 
+USTRUCT(BlueprintType)
+struct FInputInfo
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+	FString InputMame;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+	float TimeStamp;
+};
 
 UCLASS()
 class MYPROJECT_API AMyCharacter : public ACharacter, public IAbilitySystemInterface
@@ -56,12 +67,28 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere,Category = "AttributeSet")
 	class UBasicAttribueSet* BasicAttributes;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+	TArray<FInputInfo> inputBuffer;
 	
 	UFUNCTION(BlueprintCallable, Category = "GamePlayAbility")
 	FGameplayTagContainer AddGameplayTags(const FGameplayTagContainer Tag);
 
 	UFUNCTION(BlueprintCallable, Category = "GamePlayAbility")
 	FGameplayTagContainer RemoveGameplayTags(const FGameplayTagContainer Tag);
+
+	UFUNCTION(BlueprintCallable, Category = "Input")
+	void AddInputToInputBuffer(FInputInfo _inputInfo);
+
+	UFUNCTION(BlueprintCallable, Category = "Input")
+	void RemoveInputToInputBuffer();
+
+// The timer handel for remove inputs from input buffer
+	FTimerHandle InputBufferTimerHandle;
+	
+// The amount of time before inputs are removed from the input buffer
+	float removeInputFromInputBuffer;
+	
 	//Add Ability
 	void AquareAbility();
 

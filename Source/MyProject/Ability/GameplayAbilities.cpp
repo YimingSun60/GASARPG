@@ -26,25 +26,6 @@ void UGameplayAbilities::OnAvatarSet(const FGameplayAbilityActorInfo* ActorInfo,
 }
 
 
-FGameplayTagContainer UGameplayAbilities::AddGamePlayTag(FGameplayTagContainer Tag, UGameplayEffect *GameplayEffect)
-{
-	if(GameplayEffect)
-	{
-		GameplayEffect->InheritableOwnedTagsContainer.Added.AppendTags(Tag);
-	}
-	
-	return Tag;
-}
-
-FGameplayTagContainer UGameplayAbilities::RemoveGamePlayTag(FGameplayTagContainer Tag, UGameplayEffect* GameplayEffect)
-{
-	if(GameplayEffect)
-	{
-		GameplayEffect->InheritableOwnedTagsContainer.Removed.AppendTags(Tag);
-	}
-	
-	return Tag;
-}
 
 
 

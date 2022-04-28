@@ -22,6 +22,8 @@ AMyCharacter::AMyCharacter()
 	bUseControllerRotationRoll = false;
 
 	BasicAttributes = CreateDefaultSubobject<UBasicAttribueSet>(TEXT("BasicAttributeSet"));
+
+	removeInputFromInputBuffer = 1.0f;
 }
 
 UAbilitySystemComponent* AMyCharacter::GetAbilitySystemComponent() const
@@ -60,6 +62,16 @@ FGameplayTagContainer AMyCharacter::RemoveGameplayTags(FGameplayTagContainer Tag
 	return Tag;
 }
 
+void AMyCharacter::AddInputToInputBuffer(FInputInfo _inputInfo)
+{
+	inputBuffer.Add(_inputInfo);
+}
+
+void AMyCharacter::RemoveInputToInputBuffer()
+{
+	
+}
+
 //Add ability and bind to the key
 void AMyCharacter::AquareAbility()
 {
@@ -78,8 +90,8 @@ void AMyCharacter::BindInput()
 	if(IsValid(AbilitySystemComponent)&& IsValid(InputComponent))
 	{
 		
-		check(GEngine != nullptr);
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Binding Success"));
+		//check(GEngine != nullptr);
+		//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Binding Success"));
 		AbilitySystemComponent->BindAbilityActivationToInputComponent(InputComponent, FGameplayAbilityInputBinds(FString("Comfirm"),
 			FString("Cancel"), FString("AbilityInputID"), static_cast<int32>(AbilityInputID::Confirm), static_cast<int32>(AbilityInputID::Cancel)));
 
