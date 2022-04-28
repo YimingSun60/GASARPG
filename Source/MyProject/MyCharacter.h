@@ -10,9 +10,6 @@
 #include "BasicAttribueSet.h"
 #include "MyCharacter.generated.h"
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
 USTRUCT(BlueprintType)
 struct FCommand
 {
@@ -25,8 +22,7 @@ public:
 	TArray<FString> inputs;
 };
 
-=======
->>>>>>> LongPressTest
+
 USTRUCT(BlueprintType)
 struct FInputInfo
 {
@@ -38,10 +34,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
 	float TimeStamp;
 };
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> LongPressTest
+
 
 UCLASS()
 class MYPROJECT_API AMyCharacter : public ACharacter, public IAbilitySystemInterface
@@ -97,16 +90,11 @@ protected:
 
 	UFUNCTION(BlueprintCallable, Category = "GamePlayAbility")
 	FGameplayTagContainer RemoveGameplayTags(const FGameplayTagContainer Tag);
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> LongPressTest
+
 
 	UFUNCTION(BlueprintCallable, Category = "Input")
 	void AddInputToInputBuffer(FInputInfo _inputInfo);
 
-<<<<<<< HEAD
 	//Check if the input buffer contains any sequence from the character's list of cammands.
 	UFUNCTION(BlueprintCallable)
 	void CheckInputBufferForCommand();
@@ -124,19 +112,13 @@ protected:
 	//Command Booleans
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Command")
 	bool hasUsedTempCommand;
-	
->>>>>>> Stashed changes
-=======
-	UFUNCTION(BlueprintCallable, Category = "Input")
-	void RemoveInputToInputBuffer();
 
 // The timer handel for remove inputs from input buffer
 	FTimerHandle InputBufferTimerHandle;
 	
 // The amount of time before inputs are removed from the input buffer
 	float removeInputFromInputBuffer;
-	
->>>>>>> LongPressTest
+
 	//Add Ability
 	void AquareAbility();
 
