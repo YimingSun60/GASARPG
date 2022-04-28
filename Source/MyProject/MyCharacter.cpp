@@ -22,6 +22,16 @@ AMyCharacter::AMyCharacter()
 	bUseControllerRotationRoll = false;
 
 	BasicAttributes = CreateDefaultSubobject<UBasicAttribueSet>(TEXT("BasicAttributeSet"));
+<<<<<<< Updated upstream
+=======
+
+	removeInputFromInputBufferTime = 1.0f;
+	tempCommand.name = "Temp Command";
+	tempCommand.inputs.Add("Left Mouse Button");
+	tempCommand.inputs.Add("B");
+	tempCommand.inputs.Add("C");
+	hasUsedTempCommand = false;
+>>>>>>> Stashed changes
 }
 
 UAbilitySystemComponent* AMyCharacter::GetAbilitySystemComponent() const
@@ -60,6 +70,58 @@ FGameplayTagContainer AMyCharacter::RemoveGameplayTags(FGameplayTagContainer Tag
 	return Tag;
 }
 
+<<<<<<< Updated upstream
+=======
+void AMyCharacter::AddInputToInputBuffer(FInputInfo _inputInfo)
+{
+	inputBuffer.Add(_inputInfo);
+}
+
+//Find sequence in a list of command and find out if we pressed these buttons
+//If have, start command
+void AMyCharacter::CheckInputBufferForCommand()
+{
+	int correctSequeceCounter = 0;
+
+	for(int commandInput = 0; commandInput < tempCommand.inputs.Num(); ++commandInput)
+	{
+		for(int input = 0; input<inputBuffer.Num(); ++input)
+		{
+			if(input + correctSequeceCounter < inputBuffer.Num())
+			{
+				//Check if single input matches single command
+				//If matches, increment the correctSequenceCounter.
+				//If correctSequenceCounter matches the length of command, means the whole input sequence matches the command sequence
+				//active the command.
+				//Else, correctSequenceCounter doesn't match the length of command, means the input sequence does not match the command
+				//therefore cannot active the command.
+				if(inputBuffer[input+correctSequeceCounter].InputMame.Compare(tempCommand.inputs[commandInput])==0)
+				{
+					UE_LOG(LogTemp, Warning, TEXT("The player added another input to the command sequence."))
+					++correctSequeceCounter;
+					if(correctSequeceCounter == tempCommand.inputs.Num())
+					{
+						StartCommand(tempCommand.name);
+					}
+					break;
+				}
+				else
+				{
+					UE_LOG(LogTemp, Warning, TEXT("The player broke the comaand sequence."))
+					correctSequeceCounter = 0;
+				}
+			}
+			else
+			{
+				UE_LOG(LogTemp, Warning, TEXT("The player is not yet finished with the command sequence."))
+				correctSequeceCounter = 0;
+			}
+		}
+	}
+}
+
+
+>>>>>>> Stashed changes
 //Add ability and bind to the key
 void AMyCharacter::AquareAbility()
 {

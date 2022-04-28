@@ -10,6 +10,32 @@
 #include "BasicAttribueSet.h"
 #include "MyCharacter.generated.h"
 
+<<<<<<< Updated upstream
+=======
+USTRUCT(BlueprintType)
+struct FCommand
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+	FString name;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+	TArray<FString> inputs;
+};
+
+USTRUCT(BlueprintType)
+struct FInputInfo
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+	FString InputMame;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+	float TimeStamp;
+};
+>>>>>>> Stashed changes
 
 UCLASS()
 class MYPROJECT_API AMyCharacter : public ACharacter, public IAbilitySystemInterface
@@ -62,6 +88,31 @@ protected:
 
 	UFUNCTION(BlueprintCallable, Category = "GamePlayAbility")
 	FGameplayTagContainer RemoveGameplayTags(const FGameplayTagContainer Tag);
+<<<<<<< Updated upstream
+=======
+
+	UFUNCTION(BlueprintCallable, Category = "Input")
+	void AddInputToInputBuffer(FInputInfo _inputInfo);
+
+	//Check if the input buffer contains any sequence from the character's list of cammands.
+	UFUNCTION(BlueprintCallable)
+	void CheckInputBufferForCommand();
+
+	//Make the character begin using a command based of the command's name.
+	UFUNCTION(BlueprintCallable)
+	void StartCommand(FString name);
+
+	// The amount of time before inputs are removed from the input buffer
+	float removeInputFromInputBufferTime;
+
+	//Command to be used when a correct series of inputs has been pressed
+	FCommand tempCommand;
+
+	//Command Booleans
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Command")
+	bool hasUsedTempCommand;
+	
+>>>>>>> Stashed changes
 	//Add Ability
 	void AquareAbility();
 
