@@ -2,6 +2,8 @@
 
 #pragma once
 
+
+
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
@@ -20,6 +22,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
 	TArray<FString> inputs;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+	bool hasUsedCommand;
 };
 
 
@@ -35,6 +40,15 @@ public:
 	float TimeStamp;
 };
 
+USTRUCT(BlueprintType)
+struct FCommandKey
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Command")
+	FString CommandName;
+	
+};
 
 UCLASS()
 class MYPROJECT_API AMyCharacter : public ACharacter, public IAbilitySystemInterface
@@ -71,6 +85,8 @@ protected:
 	void WalkActive();
 	void WalkInactive();
 
+	void AccessInputBuffer();
+
 	// Set AbilitySystem component
 	UPROPERTY(BlueprintReadOnly, Category = "AbilitySytem")
 	class UAbilitySystemComponent* AbilitySystemComponent;
@@ -101,17 +117,21 @@ protected:
 
 	//Make the character begin using a command based of the command's name.
 	UFUNCTION(BlueprintCallable)
-	void StartCommand(FString _commandName);
+	void StartCommand(FCommand Command);
 
 	// The amount of time before inputs are removed from the input buffer
 	float removeInputFromInputBufferTime;
 
 	//Command to be used when a correct series of inputs has been pressed
-	FCommand tempCommand;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Command")
+	TArray<FCommand> CharacterCommands;
 
 	//Command Booleans
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Command")
 	bool hasUsedTempCommand;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Command")
+	TArray<FCommandKey> CommandKeys;
 
 // The timer handel for remove inputs from input buffer
 	FTimerHandle InputBufferTimerHandle;

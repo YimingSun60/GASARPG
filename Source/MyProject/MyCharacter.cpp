@@ -25,15 +25,20 @@ AMyCharacter::AMyCharacter()
 
 
 	removeInputFromInputBufferTime = 1.0f;
-	tempCommand.name = "Temp Command";
-	tempCommand.inputs.Add("Left Mouse Button");
-	tempCommand.inputs.Add("B");
-	tempCommand.inputs.Add("C");
+	CharacterCommands.SetNum(2);
+	
+	CharacterCommands[0].name = "Command1";
+	CharacterCommands[0].inputs.Add("B");
+	CharacterCommands[0].hasUsedCommand = false;
+
+	CharacterCommands[1].name = "Command2";
+	CharacterCommands[1].inputs.Add("C");
+	CharacterCommands[1].hasUsedCommand = false;
+	
 	hasUsedTempCommand = false;
 
 
 	removeInputFromInputBuffer = 1.0f;
-
 }
 
 UAbilitySystemComponent* AMyCharacter::GetAbilitySystemComponent() const
@@ -75,8 +80,21 @@ FGameplayTagContainer AMyCharacter::RemoveGameplayTags(FGameplayTagContainer Tag
 
 void AMyCharacter::AddInputToInputBuffer(FInputInfo _inputInfo)
 {
-	inputBuffer.Add(_inputInfo);
-	CheckInputBufferForCommand();
+	for(int i = 0; i < CommandKeys.Num(); ++i)
+	{
+	//if input valid
+		if(_inputInfo.InputMame == CommandKeys[i].CommandName)
+		{
+			if(inputBuffer.Num()==2)
+			{
+				inputBuffer.RemoveAt(0);
+				UE_LOG(LogTemp,Warning,TEXT("The character removed an input"));
+			}
+			inputBuffer.Add(_inputInfo);
+			UE_LOG(LogTemp,Warning,TEXT("The character added an input"));
+		}
+	}
+	UE_LOG(LogTemp,Warning,TEXT("input buffer size %i"), inputBuffer.Num());
 }
 
 
@@ -85,66 +103,66 @@ void AMyCharacter::AddInputToInputBuffer(FInputInfo _inputInfo)
 void AMyCharacter::CheckInputBufferForCommand()
 {
 	int correctSequeceCounter = 0;
-
-	for(int commandInput = 0; commandInput < tempCommand.inputs.Num(); ++commandInput)
+	TArray<FInputInfo> Temp;
+	Temp.Empty();
+	FCommand TempCommand;
+	//Loop through Command Array, Check if input buffer matches the single command
+	//If Match, Start the command
+	//If Not Match, execute the first input in input buffer
+	for(auto currentCommand : CharacterCommands)
 	{
-		for(int input = 0; input<inputBuffer.Num(); ++input)
+		//Store the single command that matches the first element of input buffer 
+		if(currentCommand.inputs.Num() == 1 && currentCommand.inputs[0] == inputBuffer[0].InputMame)
 		{
-			if(input + correctSequeceCounter < inputBuffer.Num())
+			TempCommand = currentCommand;
+		}
+		//Filter the command array
+		if(inputBuffer.Num() == currentCommand.inputs.Num())
+		{
+			// compare command with input buffer
+			for(int commandInput = 0; commandInput < currentCommand.inputs.Num(); ++commandInput)
 			{
-				//Check if single input matches single command
-				//If matches, increment the correctSequenceCounter.
-				//If correctSequenceCounter matches the length of command, means the whole input sequence matches the command sequence
-				//active the command.
-				//Else, correctSequenceCounter doesn't match the length of command, means the input sequence does not match the command
-				//therefore cannot active the command.
-				if(inputBuffer[input+correctSequeceCounter].InputMame.Compare(tempCommand.inputs[commandInput])==0)
+				if(inputBuffer[commandInput].InputMame == currentCommand.inputs[commandInput])
 				{
-					UE_LOG(LogTemp, Warning, TEXT("The player added another input to the command sequence."))
-					++correctSequeceCounter;
-					if(correctSequeceCounter == tempCommand.inputs.Num())
-					{
-						StartCommand(tempCommand.name);
-					}
-					break;
-				}
-				else
-				{
-					UE_LOG(LogTemp, Warning, TEXT("The player broke the comaand sequence."))
-					correctSequeceCounter = 0;
+					correctSequeceCounter++;
 				}
 			}
-			else
+			if(correctSequeceCounter == currentCommand.inputs.Num())
 			{
-				UE_LOG(LogTemp, Warning, TEXT("The player is not yet finished with the command sequence."))
-				correctSequeceCounter = 0;
+				StartCommand(currentCommand);
+				break;
 			}
+			correctSequeceCounter = 0;
 		}
 	}
-}
-
-void AMyCharacter::StartCommand(FString _commandName)
-{
-	if(_commandName.Compare(tempCommand.name) == 0)
+	if(correctSequeceCounter != 0 && correctSequeceCounter != inputBuffer.Num())
 	{
-		UE_LOG(LogTemp,Warning,TEXT("The character is using the command: %s."),*_commandName);
-		hasUsedTempCommand = true;
+		Temp.Add(inputBuffer[0]);
+		inputBuffer = Temp;
+		StartCommand(TempCommand);
 	}
 }
 
+//直接pass command class可能更好
+void AMyCharacter::StartCommand(FCommand Command)
+{
+	UE_LOG(LogTemp,Warning,TEXT("The character is using the command: %s."),*Command.name);
+	Command.hasUsedCommand = true;
+}
 
 
 
 
-//Add ability and bind to the key
+
+//Iterate through the array of abilities and register InputID to the ability system component
+//So that ability system could grand ability when the InputID is triggered.
 void AMyCharacter::AquareAbility()
 {
+
 	for(TSubclassOf<UGameplayAbilities>& StartupAbility : CharacterAbilities)
 	{
 		AbilitySystemComponent->GiveAbility(
 		FGameplayAbilitySpec(StartupAbility, 1, static_cast<int32>(StartupAbility.GetDefaultObject()->AbilityInputID) , this));
-		check(GEngine != nullptr);
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("Aquare %hhd"), StartupAbility.GetDefaultObject()->AbilityInputID));
 	}
 	AbilitySystemComponent->InitAbilityActorInfo(this, this);
 }
@@ -264,6 +282,11 @@ void AMyCharacter::WalkActive()
 void AMyCharacter::WalkInactive()
 {
 	Movementcomp->MaxWalkSpeed = 480;
+}
+
+void AMyCharacter::AccessInputBuffer()
+{
+	
 }
 
 
