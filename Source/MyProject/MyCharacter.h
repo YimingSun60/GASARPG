@@ -84,6 +84,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
 	TArray<FInputInfo> inputBuffer;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+	bool CanInput;
 	
 	UFUNCTION(BlueprintCallable, Category = "GamePlayAbility")
 	FGameplayTagContainer AddGameplayTags(const FGameplayTagContainer Tag);

@@ -34,6 +34,8 @@ AMyCharacter::AMyCharacter()
 
 	removeInputFromInputBuffer = 1.0f;
 
+	CanInput = false;
+
 }
 
 UAbilitySystemComponent* AMyCharacter::GetAbilitySystemComponent() const
