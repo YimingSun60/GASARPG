@@ -34,6 +34,8 @@ AMyCharacter::AMyCharacter()
 
 	removeInputFromInputBuffer = 1.0f;
 
+	IsInputted = false;
+	LongPress = false;
 }
 
 UAbilitySystemComponent* AMyCharacter::GetAbilitySystemComponent() const
@@ -133,14 +135,18 @@ void AMyCharacter::StartCommand(FString name)
 //Add ability and bind to the key
 void AMyCharacter::AquareAbility()
 {
-	for(TSubclassOf<UGameplayAbilities>& StartupAbility : CharacterAbilities)
+	if(CharacterAbilities.Num()>0)
 	{
-		AbilitySystemComponent->GiveAbility(
-		FGameplayAbilitySpec(StartupAbility, 1, static_cast<int32>(StartupAbility.GetDefaultObject()->AbilityInputID) , this));
-		check(GEngine != nullptr);
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("Aquare %hhd"), StartupAbility.GetDefaultObject()->AbilityInputID));
+		for(TSubclassOf<UGameplayAbilities>& StartupAbility : CharacterAbilities)
+		{
+			AbilitySystemComponent->GiveAbility(
+			FGameplayAbilitySpec(StartupAbility, 1, static_cast<int32>(StartupAbility.GetDefaultObject()->AbilityInputID) , this));
+			check(GEngine != nullptr);
+			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("Aquare %hhd"), StartupAbility.GetDefaultObject()->AbilityInputID));
+		}
+		AbilitySystemComponent->InitAbilityActorInfo(this, this);
 	}
-	AbilitySystemComponent->InitAbilityActorInfo(this, this);
+
 }
 
 void AMyCharacter::BindInput()
