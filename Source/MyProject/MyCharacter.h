@@ -55,6 +55,7 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Reference")
 	UCharacterMovementComponent* Movementcomp;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -105,7 +106,16 @@ protected:
 	//Make the character begin using a command based of the command's name.
 	UFUNCTION(BlueprintCallable)
 	void StartCommand(FString name);
+	
 
+	UPROPERTY(BlueprintReadOnly)
+	TArray<AActor*> ActorToIgnore;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HitDetection")
+	FHitResult HitInfo;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HitDetection")
+	float TraceRadius;
 	// The amount of time before inputs are removed from the input buffer
 	float removeInputFromInputBufferTime;
 

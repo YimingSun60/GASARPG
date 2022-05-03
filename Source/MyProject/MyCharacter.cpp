@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "MyCharacter.h"
 #include "Data/Data.h"
+#include "Kismet/KismetSystemLibrary.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
@@ -35,7 +36,7 @@ AMyCharacter::AMyCharacter()
 	removeInputFromInputBuffer = 1.0f;
 
 	CanInput = false;
-
+	
 }
 
 UAbilitySystemComponent* AMyCharacter::GetAbilitySystemComponent() const
@@ -48,6 +49,8 @@ void AMyCharacter::PossessedBy(AController* NewController)
 	Super::PossessedBy(NewController);
 	AquareAbility();
 }
+
+
 
 // Called when the game starts or when spawned
 void AMyCharacter::BeginPlay()
@@ -127,9 +130,6 @@ void AMyCharacter::CheckInputBufferForCommand()
 void AMyCharacter::StartCommand(FString name)
 {
 }
-
-
-
 
 
 //Add ability and bind to the key

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Animation/AnimInstance.h"
+#include "MyCharacter.h"
 #include "Math/Vector.h"
 #include "MyAnimInstance.generated.h"
 
@@ -38,6 +39,7 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = "Update Properties")
 	void ShouldMove(APawn *Pawn);
 	
+
 };
 
 
